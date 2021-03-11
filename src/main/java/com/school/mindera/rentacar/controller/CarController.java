@@ -1,56 +1,52 @@
 package com.school.mindera.rentacar.controller;
 
-import com.school.mindera.rentacar.persistence.entity.CarEntity;
+import com.school.mindera.rentacar.model.Car.CarDetailsDto;
+import com.school.mindera.rentacar.model.Car.CreateOrUpdateCarDto;
 import com.school.mindera.rentacar.service.CarService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping("cars")
 public class CarController {
 
-    private final CarService carService;
-
-    public CarController(CarService carService) {
-        this.carService = carService;
-    }
+    @Autowired
+    CarService carService;
 
     @PostMapping
-    public ResponseEntity<CarEntity> createCar(@RequestBody CarEntity carEntity) {
+    public ResponseEntity<CarDetailsDto> createCar(@Valid @RequestBody CreateOrUpdateCarDto createOrUpdateCarDto) {
+        CarDetailsDto carDetails = carService.addNewCar(createOrUpdateCarDto);
+        return new ResponseEntity<>(carDetails, HttpStatus.CREATED);
+    }
 
-        CarEntity createdCar = carService.createCar(carEntity);
-
-        return new ResponseEntity<>(createdCar, HttpStatus.CREATED);
+    @GetMapping("/{carId}")
+    public ResponseEntity<CarDetailsDto> getCarById(@PathVariable long carId) {
+        CarDetailsDto carDetails = carService.getCarById(carId);
+        return new ResponseEntity<>(carDetails, HttpStatus.OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<CarEntity>> getAllCars(){
-        List<CarEntity> allCars = carService.getAllCars();
-
-        return new ResponseEntity<>(allCars, HttpStatus.OK);
+    public ResponseEntity<List<CarDetailsDto>> getCarsList() {
+        List<CarDetailsDto> carsList = carService.getAllCars();
+        return new ResponseEntity<>(carsList, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<CarEntity> getCarById(@PathVariable long id){
-        CarEntity selectedCar = carService.getCarById(id);
-
-        return new ResponseEntity<>(selectedCar, HttpStatus.OK);
+    @PutMapping("/{carId}")
+    public ResponseEntity<CarDetailsDto> updateCar(@PathVariable long carId,
+                                                   @Valid @RequestBody CreateOrUpdateCarDto createOrUpdateCarDto) {
+        CarDetailsDto carDetailsDto = carService.updateCarDetails(carId, createOrUpdateCarDto);
+        return new ResponseEntity<>(carDetailsDto, HttpStatus.OK);
     }
 
-    @PutMapping
-    public ResponseEntity<CarEntity> updateCar(@RequestBody CarEntity carEntity){
-        CarEntity updatedCar = carService.updateCarById(carEntity);
-
-        return new ResponseEntity<>(updatedCar, HttpStatus.OK);
+    @DeleteMapping("/{carId}")
+    public ResponseEntity deleteCar(@PathVariable long carId) {
+        carService.deleteCar(carId);
+        return new ResponseEntity(HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<CarEntity> deleteCar(@PathVariable long id){
-        CarEntity deletedCar = carService.deleteCar(id);
-
-        return new ResponseEntity<>(deletedCar, HttpStatus.OK);
-    }
 }

@@ -1,56 +1,66 @@
 package com.school.mindera.rentacar.controller;
 
-import com.school.mindera.rentacar.persistence.entity.UserEntity;
+import com.school.mindera.rentacar.enumerators.UserRole;
+import com.school.mindera.rentacar.model.User.CreateUserDto;
+import com.school.mindera.rentacar.model.User.UpdateUserDto;
+import com.school.mindera.rentacar.model.User.UserDetailsDto;
 import com.school.mindera.rentacar.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserService userService;
+    @Autowired
+    UserService userService;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
-    }
 
     @PostMapping
-    public ResponseEntity<UserEntity> createUser(@RequestBody UserEntity userEntity) {
+    public ResponseEntity<UserDetailsDto> createUser(@Valid @RequestBody CreateUserDto createUserDto) {
 
-        UserEntity createdUser = userService.createUser(userEntity);
+        UserDetailsDto userDetailsDto =  userService.createUser(createUserDto, UserRole.CUSTOMER);
 
-        return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
+        return new ResponseEntity<>(userDetailsDto, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserDetailsDto> getUserById(@PathVariable long userId) {
+
+        UserDetailsDto userDetailsDto = userService.getUserById(userId);
+
+        return new ResponseEntity<>(userDetailsDto, OK);
     }
 
     @GetMapping
-    public ResponseEntity<List<UserEntity>> getAllUsers(){
-        List<UserEntity> allUsers = userService.getAllUsers();
+    public ResponseEntity<List<UserDetailsDto>> getAllUsers() {
 
-        return new ResponseEntity<>(allUsers, HttpStatus.OK);
+        List<UserDetailsDto> usersList = userService.getAllUsers();
+
+        return new ResponseEntity<>(usersList, OK);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<UserEntity> getUserById(@PathVariable long id){
-        UserEntity selectedUser = userService.getUserById(id);
+    @PutMapping("/{userId}")
+    public ResponseEntity<UserDetailsDto> updateUser(@PathVariable long userId,
+                                                     @Valid @RequestBody UpdateUserDto updateUserDto) {
 
-        return new ResponseEntity<>(selectedUser, HttpStatus.OK);
+        UserDetailsDto userDetailsDto = userService.updateUser(userId, updateUserDto);
+
+        return new ResponseEntity<>(userDetailsDto, OK);
     }
 
-    @PutMapping
-    public ResponseEntity<UserEntity> updateUser(@RequestBody UserEntity userEntity){
-        UserEntity updatedUser = userService.updateUserById(userEntity);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity deleteUser(@PathVariable long userId) {
 
-        return new ResponseEntity<>(updatedUser, HttpStatus.OK);
-    }
+        userService.deleteUser(userId);
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<UserEntity> deleteUser(@PathVariable long id){
-        UserEntity deletedUser = userService.deleteUser(id);
-
-        return new ResponseEntity<>(deletedUser, HttpStatus.OK);
+        return new ResponseEntity(OK);
     }
 }

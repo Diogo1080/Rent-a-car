@@ -1,39 +1,52 @@
 package com.school.mindera.rentacar.persistence.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import com.school.mindera.rentacar.enumerators.CarBrands;
+import com.school.mindera.rentacar.enumerators.CarSegment;
+import com.school.mindera.rentacar.enumerators.EngineType;
+import lombok.*;
 
 import javax.persistence.*;
+import java.util.Date;
+import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "cars")
-public class CarEntity {
+public class CarEntity  extends AbstractEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long Id;
 
-    @Column(nullable = false, length = 100)
-    private String  brand;
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private CarBrands brand;
 
     @Column(nullable = false)
     private String modelDescription;
 
+    @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)
-    private String engineType;
+    private EngineType engineType;
+
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable = false)
+    private CarSegment carSegment;
 
     @Column(nullable = false)
-    private String carSegment;
+    private Date dateOfPurchase;
 
-    @Column(nullable = false)
-    private String year;
-
-    @Column(nullable = false)
+    @Column(nullable = false, length = 8, unique = true)
     private String plate;
+
+    @Column(nullable = false)
+    private boolean available;
+
+    @OneToMany(mappedBy = "carEntity")
+    private List<RentEntity> rents;
+
 }

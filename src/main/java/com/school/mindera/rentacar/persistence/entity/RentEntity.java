@@ -3,9 +3,9 @@ package com.school.mindera.rentacar.persistence.entity;
 
 import lombok.*;
 import javax.persistence.*;
+import java.math.BigDecimal;
 import java.util.Date;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,7 +16,7 @@ public class RentEntity extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", nullable = false)
@@ -33,11 +33,11 @@ public class RentEntity extends AbstractEntity {
     private Date expectedEndDate;
 
     @Column(nullable=false)
-    private double expectedPrice;
+    private BigDecimal expectedPrice;
 
     private Date beginDate;
 
     private Date endDate;
 
-    private double finalPrice;
+    private BigDecimal finalPrice;
 }

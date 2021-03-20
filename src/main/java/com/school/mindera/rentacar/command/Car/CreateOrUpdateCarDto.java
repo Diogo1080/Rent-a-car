@@ -1,4 +1,4 @@
-package com.school.mindera.rentacar.model.Car;
+package com.school.mindera.rentacar.command.Car;
 
 import com.school.mindera.rentacar.enumerators.CarBrands;
 import com.school.mindera.rentacar.enumerators.CarSegment;
@@ -6,20 +6,18 @@ import com.school.mindera.rentacar.enumerators.EngineType;
 import lombok.Builder;
 import lombok.Data;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * CreateOrUpdateCarDto mainly used to store car info when creating or updating cars
+ */
 @Data
 @Builder
-public class CarDetailsDto {
-    private long id;
+public class CreateOrUpdateCarDto {
     private CarBrands brand;
     private String modelDescription;
     private EngineType engineType;
     private CarSegment carSegment;
     private Date dateOfPurchase;
     private String plate;
-    private BigDecimal dailyPrice;
-    private boolean available;
-
 }

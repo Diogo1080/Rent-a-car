@@ -1,12 +1,21 @@
 package com.school.mindera.rentacar.converter;
 
-import com.school.mindera.rentacar.model.Rent.CreateOrUpdateRentDto;
-import com.school.mindera.rentacar.model.Rent.RentDetailsDto;
+import com.school.mindera.rentacar.command.Rent.CreateOrUpdateRentDto;
+import com.school.mindera.rentacar.command.Rent.RentDetailsDto;
 import com.school.mindera.rentacar.persistence.entity.CarEntity;
 import com.school.mindera.rentacar.persistence.entity.RentEntity;
 import com.school.mindera.rentacar.persistence.entity.UserEntity;
 
+/**
+ * Rent converter
+ * Transforms from one data model to another
+ */
 public class RentConverter {
+    /**
+     * From {@link RentEntity} to {@link RentDetailsDto}
+     * @param rentEntity {@link RentEntity}
+     * @return {@link RentDetailsDto}
+     */
     public static RentDetailsDto fromRentEntityToRentDetailsDto(RentEntity rentEntity) {
         return RentDetailsDto.builder()
                 .id(rentEntity.getId())
@@ -21,6 +30,14 @@ public class RentConverter {
                 .build();
     }
 
+    /**
+     * From {@link CreateOrUpdateRentDto} to {@link RentEntity}
+     * Requires two extra parameters in order to do a RentEntity
+     * @param createOrUpdateRentDto {@link CreateOrUpdateRentDto}
+     * @param car {@link CarEntity}
+     * @param user {@link UserEntity}
+     * @return {@link RentEntity}
+     */
     public static RentEntity fromCreateOrUpdateRentDtoToRentEntity(CreateOrUpdateRentDto createOrUpdateRentDto, CarEntity car, UserEntity user) {
         return RentEntity.builder()
                 .carEntity(car)
@@ -28,9 +45,6 @@ public class RentConverter {
                 .expectedBeginDate(createOrUpdateRentDto.getExpectedBeginDate())
                 .expectedEndDate(createOrUpdateRentDto.getExpectedEndDate())
                 .expectedPrice(createOrUpdateRentDto.getExpectedPrice())
-                .finalPrice(createOrUpdateRentDto.getFinalPrice())
-                .beginDate(createOrUpdateRentDto.getBeginDate())
-                .endDate(createOrUpdateRentDto.getEndDate())
                 .build();
     }
 }

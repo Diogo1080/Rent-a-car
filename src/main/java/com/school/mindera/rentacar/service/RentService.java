@@ -1,122 +1,95 @@
 package com.school.mindera.rentacar.service;
 
-import com.school.mindera.rentacar.converter.RentConverter;
-import com.school.mindera.rentacar.error.ErrorMessages;
-import com.school.mindera.rentacar.exception.CarAlreadyRentedException;
-import com.school.mindera.rentacar.exception.CarNotFoundException;
-import com.school.mindera.rentacar.exception.RentNotFoundException;
-import com.school.mindera.rentacar.exception.UserNotFoundException;
-import com.school.mindera.rentacar.model.Rent.CreateOrUpdateRentDto;
-import com.school.mindera.rentacar.model.Rent.RentDateDto;
-import com.school.mindera.rentacar.model.Rent.RentDetailsDto;
-import com.school.mindera.rentacar.persistence.entity.CarEntity;
-import com.school.mindera.rentacar.persistence.entity.RentEntity;
-import com.school.mindera.rentacar.persistence.entity.UserEntity;
-import com.school.mindera.rentacar.persistence.repository.CarRepository;
-import com.school.mindera.rentacar.persistence.repository.RentRepository;
-import com.school.mindera.rentacar.persistence.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import com.school.mindera.rentacar.command.Rent.CreateOrUpdateRentDto;
+import com.school.mindera.rentacar.command.Rent.RentDetailsDto;
+import com.school.mindera.rentacar.exception.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
+/**
+ * Common interface for rent service, provides methods to manage rents
+ */
+public interface RentService {
 
-@Service
-public class RentService {
+    /**
+     * Add new Rent
+     * @param createOrUpdateRentDto {@link CreateOrUpdateRentDto}
+     * @return {@link RentDetailsDto}
+     * @throws CarNotFoundException if car not found
+     * @throws UserNotFoundException if user not found
+     * @throws CarAlreadyRentedException if car is already rented in given dates
+     * @throws DatabaseCommunicationException if database connection isn't established
+     */
+    RentDetailsDto addNewRent(CreateOrUpdateRentDto createOrUpdateRentDto)
+            throws CarAlreadyRentedException,
+            CarNotFoundException,
+            UserNotFoundException,
+            DatabaseCommunicationException;
 
-    @Autowired
-    RentRepository rentRepository;
+    /**
+     * Get certain rent by id from database
+     * @param rentId Receives the rent id
+     * @return {@link RentDetailsDto}
+     * @throws RentNotFoundException if rent is not found
+     */
+    RentDetailsDto getRentById(long rentId) throws RentNotFoundException;
 
-    @Autowired
-    CarRepository carRepository;
-
-    @Autowired
-    UserRepository userRepository;
-
-    public RentDetailsDto addNewRent(CreateOrUpdateRentDto createOrUpdateRentDto, long carId, long userId) {
-
-        CarEntity carEntity = carRepository.findById(carId).orElseThrow(() -> new CarNotFoundException(ErrorMessages.CAR_NOT_FOUND));
-        UserEntity userEntity = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException(ErrorMessages.USER_NOT_FOUND));
-
-        List<RentEntity> rents = rentRepository.findAllByCarEntity(carEntity);
+    /**
+     * Get all rents from database
+     * @return All rents found
+     */
+    List<RentDetailsDto> getAllRents();
 
 
+    /**
+     * Update Rent with certain id
+     * Can only update:
+     *          carId
+     *          expectedBeginDate
+     *          expectedEndDate
+     * @param rentId Receives rent id to update
+     * @param createOrUpdateRentDto {@link CreateOrUpdateRentDto}
+     * @return {@link RentDetailsDto}
+     * @throws RentNotFoundException if rent is not found
+     * @throws CarNotFoundException if car is not found
+     * @throws UserNotFoundException if user is not found
+     * @throws CarAlreadyRentedException if car is already rented in given dates
+     * @throws DatabaseCommunicationException if database connection isn't established
+     */
+    RentDetailsDto updateRentDetails(long rentId, CreateOrUpdateRentDto createOrUpdateRentDto)
+            throws RentNotFoundException,
+            CarNotFoundException,
+            UserNotFoundException,
+            CarAlreadyRentedException,
+            DatabaseCommunicationException;
 
-        if (!carEntity.isAvailable()) {
-            throw new CarAlreadyRentedException(ErrorMessages.CAR_ALREADY_RENTED);
-        }
 
-        long diffInMillies = Math.abs(createOrUpdateRentDto.getExpectedBeginDate().getTime() - createOrUpdateRentDto.getExpectedEndDate().getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
+    /**
+     * Delete rent
+     * @param rentId Receives the rent id
+     * @throws CarNotFoundException if car is not found
+     * @throws InvalidRentStatusException if car is already delivered
+     */
+    void deleteRent(long rentId) throws CarNotFoundException,InvalidRentStatusException;
 
-        diff = diff == 0 ? 1 : diff;
+    /**
+     * Deliver car to client
+     * Updates car availability and rent's begin date
+     * @param rentId Receives the rent id
+     * @return {@link RentDetailsDto}
+     * @throws RentNotFoundException if rent is not found
+     * @throws DatabaseCommunicationException if database connection isn't established
+     */
+    RentDetailsDto deliverCar(long rentId) throws RentNotFoundException,DatabaseCommunicationException;
 
-        createOrUpdateRentDto.setExpectedPrice(carEntity.getCarSegment().getDailyPrice().doubleValue() * diff);
+    /**
+     * Return car to house
+     * Updates car availability, rent's end date and rent's final price
+     * @param rentId Receives the rent id
+     * @return {@link RentDetailsDto}
+     * @throws RentNotFoundException if rent is not found
+     * @throws DatabaseCommunicationException if database connection isn't established
+     */
+    RentDetailsDto returnCar(long rentId) throws RentNotFoundException,DatabaseCommunicationException;
 
-        RentEntity rentEntity = RentConverter.fromCreateOrUpdateRentDtoToRentEntity(createOrUpdateRentDto, carEntity, userEntity);
 
-        rentRepository.save(rentEntity);
-
-        return RentConverter.fromRentEntityToRentDetailsDto(rentEntity);
-    }
-
-    public RentDetailsDto getRentById(long rentId) {
-        RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND));
-
-        return RentConverter.fromRentEntityToRentDetailsDto(rentEntity);
-    }
-
-    public List<RentDetailsDto> getAllRents() {
-        Iterable<RentEntity> rentList = rentRepository.findAll();
-
-        List<RentDetailsDto> rentListResponse = new ArrayList<>();
-        for (RentEntity rent : rentList) {
-            rentListResponse.add(RentConverter.fromRentEntityToRentDetailsDto(rent));
-        }
-
-        return rentListResponse;
-    }
-
-    public RentDetailsDto updateRentDetails(long rentId, CreateOrUpdateRentDto createOrUpdateRentDto) {
-        return null;
-    }
-
-    public void deleteRent(long rentId) {
-    }
-
-    public RentDetailsDto updateRentBeginDate(long rentId, RentDateDto rentDateDto) {
-        RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND));
-        CarEntity carEntity = rentEntity.getCarEntity();
-
-        rentEntity.setBeginDate(rentDateDto.getDate());
-        carEntity.setAvailable(false);
-
-        rentRepository.save(rentEntity);
-        carRepository.save(carEntity);
-
-        return RentConverter.fromRentEntityToRentDetailsDto(rentEntity);
-
-    }
-
-    public RentDetailsDto updateRentEndDate(long rentId, RentDateDto rentDateDto) {
-        RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND));
-        CarEntity carEntity = rentEntity.getCarEntity();
-
-        rentEntity.setEndDate(rentDateDto.getDate());
-
-        long diffInMillies = Math.abs(rentEntity.getBeginDate().getTime() - rentEntity.getEndDate().getTime());
-        long diff = TimeUnit.DAYS.convert(diffInMillies, TimeUnit.MILLISECONDS);
-
-        diff = diff == 0 ? 1 : diff;
-
-        rentEntity.setFinalPrice(carEntity.getCarSegment().getDailyPrice().doubleValue() * diff);
-
-        carEntity.setAvailable(true);
-
-        rentRepository.save(rentEntity);
-        carRepository.save(carEntity);
-
-        return RentConverter.fromRentEntityToRentDetailsDto(rentEntity);
-    }
 }

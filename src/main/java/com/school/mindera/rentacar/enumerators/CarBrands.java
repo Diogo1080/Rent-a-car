@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.enumerators;
 
+
 public enum CarBrands {
     MERCEDES("Mercedes-Benz"),
     BMW("BMW"),

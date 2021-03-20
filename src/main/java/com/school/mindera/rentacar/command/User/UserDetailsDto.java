@@ -1,8 +1,11 @@
-package com.school.mindera.rentacar.model.User;
+package com.school.mindera.rentacar.command.User;
 
-import com.school.mindera.rentacar.enumerators.UserRole;
 import lombok.Builder;
 import lombok.Data;
+
+/**
+ * UserDetailsDto mainly used to respond with user details
+ */
 
 @Data
 @Builder

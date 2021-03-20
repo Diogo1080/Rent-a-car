@@ -1,4 +1,4 @@
-package com.school.mindera.rentacar.model.User;
+package com.school.mindera.rentacar.command.User;
 
 import lombok.Builder;
 import lombok.Data;
@@ -6,10 +6,15 @@ import lombok.Data;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+
+/**
+ * UpdateRentDto mainly used to store user info when updating users
+ */
 @Data
 @Builder
-public class CreateUserDto {
-    @NotNull(message="Name can't be null")
+public class UpdateUserDto {
+
+    @NotNull(message="Your name can't be null")
     private String firstName;
 
 
@@ -18,9 +23,6 @@ public class CreateUserDto {
 
     private String licenseId;
 
-    @Email(message = "Your email doesn't fit")
+    @Email(message="email not valid")
     private String email;
-
-
-    private String password;
 }

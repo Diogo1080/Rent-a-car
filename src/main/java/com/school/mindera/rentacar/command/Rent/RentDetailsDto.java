@@ -1,9 +1,14 @@
-package com.school.mindera.rentacar.model.Rent;
+package com.school.mindera.rentacar.command.Rent;
 
 import lombok.Builder;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.util.Date;
+
+/**
+ * rentDetailsDto mainly used to respond with rent details
+ */
 
 @Data
 @Builder
@@ -13,8 +18,8 @@ public class RentDetailsDto {
     private long carId;
     private Date expectedBeginDate;
     private Date expectedEndDate;
-    private double expectedPrice;
+    private BigDecimal expectedPrice;
     private Date beginDate;
     private Date endDate;
-    private double finalPrice;
+    private BigDecimal finalPrice;
 }

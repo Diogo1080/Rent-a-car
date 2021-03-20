@@ -9,7 +9,6 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Builder
 @NoArgsConstructor
@@ -20,7 +19,7 @@ public class CarEntity  extends AbstractEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long Id;
+    private long id;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)

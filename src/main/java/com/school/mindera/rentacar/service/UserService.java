@@ -1,8 +1,8 @@
 package com.school.mindera.rentacar.service;
 
-import com.school.mindera.rentacar.command.User.CreateUserDto;
-import com.school.mindera.rentacar.command.User.UpdateUserDto;
-import com.school.mindera.rentacar.command.User.UserDetailsDto;
+import com.school.mindera.rentacar.command.user.CreateUserDto;
+import com.school.mindera.rentacar.command.user.UpdateUserDto;
+import com.school.mindera.rentacar.command.user.UserDetailsDto;
 import com.school.mindera.rentacar.enumerators.UserRole;
 import com.school.mindera.rentacar.exception.DatabaseCommunicationException;
 import com.school.mindera.rentacar.exception.UserAlreadyExistsException;

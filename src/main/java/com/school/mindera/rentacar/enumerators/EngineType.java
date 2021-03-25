@@ -1,5 +1,8 @@
 package com.school.mindera.rentacar.enumerators;
 
+/**
+ * An enumerator
+ */
 public enum EngineType {
     PETROL("Petrol"),
     DIESEL("Diesel"),

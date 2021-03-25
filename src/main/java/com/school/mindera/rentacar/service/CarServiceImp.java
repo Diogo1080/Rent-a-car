@@ -1,7 +1,7 @@
 package com.school.mindera.rentacar.service;
 
-import com.school.mindera.rentacar.command.Car.CarDetailsDto;
-import com.school.mindera.rentacar.command.Car.CreateOrUpdateCarDto;
+import com.school.mindera.rentacar.command.car.CarDetailsDto;
+import com.school.mindera.rentacar.command.car.CreateOrUpdateCarDto;
 import com.school.mindera.rentacar.converter.CarConverter;
 import com.school.mindera.rentacar.error.ErrorMessages;
 import com.school.mindera.rentacar.exception.CarAlreadyExistsException;
@@ -65,6 +65,7 @@ public class CarServiceImp implements CarService {
     @Override
     public CarDetailsDto getCarById(long carId) throws CarNotFoundException {
         // Get car from database
+        LOGGER.debug("Getting car with id {}", carId);
         CarEntity carEntity = carRepository.findById(carId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.CAR_NOT_FOUND);
@@ -81,6 +82,7 @@ public class CarServiceImp implements CarService {
     @Override
     public List<CarDetailsDto> getAllCars() {
         // Get all users from database
+        LOGGER.debug("Getting all cars");
         Iterable<CarEntity> usersList = carRepository.findAll();
 
         // Convert list items from CarEntity to CarDetailsDto
@@ -99,6 +101,7 @@ public class CarServiceImp implements CarService {
     @Override
     public void deleteCar(long carId) {
         // Verify if the car exists
+        LOGGER.debug("Getting car with id {}", carId);
         CarEntity carEntity = carRepository.findById(carId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.CAR_NOT_FOUND);
@@ -127,6 +130,7 @@ public class CarServiceImp implements CarService {
     @Override
     public CarDetailsDto updateCarDetails(long carId, CreateOrUpdateCarDto carDetails) {
         // Verify if the car exists
+        LOGGER.debug("Getting car with id {}", carId);
         CarEntity carEntity = carRepository.findById(carId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.CAR_NOT_FOUND);

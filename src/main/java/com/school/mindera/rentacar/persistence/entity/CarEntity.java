@@ -9,6 +9,9 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The car entity
+ */
 @Data
 @Builder
 @NoArgsConstructor

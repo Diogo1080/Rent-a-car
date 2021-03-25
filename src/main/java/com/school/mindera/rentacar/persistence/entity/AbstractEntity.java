@@ -11,6 +11,9 @@ import javax.persistence.Version;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Abstract Entity for version, and timestamps on create and update
+ */
 @Data
 @MappedSuperclass
 public class AbstractEntity implements Serializable{

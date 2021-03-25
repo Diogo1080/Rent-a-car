@@ -1,0 +1,20 @@
+[INFO ] 2021-03-24 12:39:49.274 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 64435 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-03-24 12:39:49.279 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-03-24 12:39:49.280 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-03-24 12:39:54.463 [restartedMain] RentacarApplication - Started RentacarApplication in 5.571 seconds (JVM running for 11.834)
+[INFO ] 2021-03-24 12:40:10.073 [http-nio-8080-exec-1] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='213@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-03-24 12:40:10.075 [http-nio-8080-exec-1] UserServiceImp - Saving user into database
+[INFO ] 2021-03-24 12:40:10.160 [http-nio-8080-exec-1] UserController - Retrieving created user UserDetailsDto(id=1, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=213@213.com)
+[INFO ] 2021-03-25 16:26:58.977 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 73350 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-03-25 16:26:58.983 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-03-25 16:26:58.985 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-03-25 16:27:04.815 [restartedMain] RentacarApplication - Started RentacarApplication in 6.306 seconds (JVM running for 12.658)
+[INFO ] 2021-03-25 16:27:14.036 [http-nio-8080-exec-1] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='213@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-03-25 16:27:14.038 [http-nio-8080-exec-1] UserServiceImp - Saving user into database
+[INFO ] 2021-03-25 16:27:14.155 [http-nio-8080-exec-1] UserController - Retrieving created user UserDetailsDto(id=1, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=213@213.com)
+[INFO ] 2021-03-25 16:28:30.746 [http-nio-8080-exec-5] CarController - Request to login with credentials - CredentialsDto(email=213@213.com, password=213)
+[DEBUG] 2021-03-25 16:28:30.747 [http-nio-8080-exec-5] AuthServiceImp - Getting user with credentials CredentialsDto(email=213@213.com, password=213)
+[INFO ] 2021-03-25 16:28:30.820 [http-nio-8080-exec-5] CarController - Retrieving logged in user - UserDetailsDto(id=1, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=213@213.com)
+[INFO ] 2021-03-25 16:29:30.460 [http-nio-8080-exec-6] CarController - Request to login with credentials - CredentialsDto(email=243@213.com, password=213)
+[DEBUG] 2021-03-25 16:29:30.463 [http-nio-8080-exec-6] AuthServiceImp - Getting user with credentials CredentialsDto(email=243@213.com, password=213)
+[ERROR] 2021-03-25 16:29:30.470 [http-nio-8080-exec-6] AuthServiceImp - The credentials given were wrong

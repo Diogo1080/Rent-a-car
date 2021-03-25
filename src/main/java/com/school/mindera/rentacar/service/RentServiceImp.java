@@ -1,7 +1,7 @@
 package com.school.mindera.rentacar.service;
 
-import com.school.mindera.rentacar.command.Rent.CreateOrUpdateRentDto;
-import com.school.mindera.rentacar.command.Rent.RentDetailsDto;
+import com.school.mindera.rentacar.command.rent.CreateOrUpdateRentDto;
+import com.school.mindera.rentacar.command.rent.RentDetailsDto;
 import com.school.mindera.rentacar.converter.RentConverter;
 import com.school.mindera.rentacar.error.ErrorMessages;
 import com.school.mindera.rentacar.exception.*;
@@ -105,9 +105,11 @@ public class RentServiceImp implements RentService {
     @Override
     public RentDetailsDto getRentById(long rentId) throws RentNotFoundException {
         //Get rent from database
-        RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> {
-            LOGGER.error(ErrorMessages.RENT_NOT_FOUND);
-            return new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND);
+        LOGGER.debug("Getting rent with id {}", rentId);
+        RentEntity rentEntity = rentRepository.findById(rentId)
+                .orElseThrow(() -> {
+                    LOGGER.error(ErrorMessages.RENT_NOT_FOUND);
+                    return new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND);
         });
 
         //Convert to RentDetailsDto and return
@@ -120,6 +122,7 @@ public class RentServiceImp implements RentService {
     @Override
     public List<RentDetailsDto> getAllRents() {
         //Get all rents from database
+        LOGGER.debug("Getting all users");
         Iterable<RentEntity> rentList = rentRepository.findAll();
 
         // Convert list items from RentEntity to RentDetailsDto
@@ -141,6 +144,7 @@ public class RentServiceImp implements RentService {
             CarNotFoundException,
             UserNotFoundException,
             CarAlreadyRentedException,
+            InvalidRentStatusException,
             DatabaseCommunicationException {
 
         //Get rent entity
@@ -178,6 +182,13 @@ public class RentServiceImp implements RentService {
             throw new CarAlreadyRentedException(ErrorMessages.CAR_EXPECTED_TO_BE_UNAVAILABLE);
         }
 
+        //Checking if rent is already completed
+        LOGGER.debug("Checking if rent is already completed");
+        if (Objects.nonNull(rentEntity.getEndDate())) {
+            LOGGER.error(ErrorMessages.RENT_IS_FINISHED);
+            throw new InvalidRentStatusException(ErrorMessages.RENT_IS_FINISHED);
+        }
+
         // Update data with rent details
         rentEntity.setCarEntity(carEntity);
         rentEntity.setExpectedBeginDate(rentDetails.getExpectedBeginDate());
@@ -204,7 +215,9 @@ public class RentServiceImp implements RentService {
      */
     @Override
     public void deleteRent(long rentId) throws CarNotFoundException, InvalidRentStatusException {
+
         // Verify if the rent Exists
+        LOGGER.debug("Getting rent with id {}", rentId);
         RentEntity rentEntity = rentRepository.findById(rentId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.RENT_NOT_FOUND);
@@ -227,6 +240,7 @@ public class RentServiceImp implements RentService {
      */
     public RentDetailsDto deliverCar(long rentId) throws RentNotFoundException,DatabaseCommunicationException{
         //Get rent entity
+        LOGGER.debug("Getting rent with id {}", rentId);
         RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> {
             LOGGER.error(ErrorMessages.RENT_NOT_FOUND);
             return new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND);
@@ -257,6 +271,7 @@ public class RentServiceImp implements RentService {
      */
     public RentDetailsDto returnCar(long rentId) throws RentNotFoundException,DatabaseCommunicationException{
         //Get rent entity
+        LOGGER.debug("Getting rent with id {}", rentId);
         RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> {
             LOGGER.error(ErrorMessages.RENT_NOT_FOUND);
             return new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND);

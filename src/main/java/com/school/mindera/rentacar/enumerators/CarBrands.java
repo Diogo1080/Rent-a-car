@@ -1,6 +1,9 @@
 package com.school.mindera.rentacar.enumerators;
 
 
+/**
+ * An enumerator for car brands
+ */
 public enum CarBrands {
     MERCEDES("Mercedes-Benz"),
     BMW("BMW"),
@@ -32,6 +35,10 @@ public enum CarBrands {
         this.name = name;
     }
 
+    /**
+     * gets name of Brand
+     * @return Brand name in String format
+     */
     public String getName() {
         return name;
     }

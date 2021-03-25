@@ -1,9 +1,8 @@
 package com.school.mindera.rentacar.controller;
 
-import com.school.mindera.rentacar.command.Rent.CreateOrUpdateRentDto;
-import com.school.mindera.rentacar.command.Rent.RentDetailsDto;
+import com.school.mindera.rentacar.command.rent.CreateOrUpdateRentDto;
+import com.school.mindera.rentacar.command.rent.RentDetailsDto;
 import com.school.mindera.rentacar.service.RentServiceImp;
-import com.school.mindera.rentacar.service.RentService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -23,10 +22,6 @@ public class RentController {
     private final RentServiceImp rentService;
     private static Logger LOGGER = LogManager.getLogger(RentController.class);
 
-    /**
-     * RentController constructor
-     * @param rentService Injects rent Service for later use
-     */
     public RentController(RentServiceImp rentService) {
         this.rentService = rentService;
     }
@@ -61,7 +56,7 @@ public class RentController {
 
     /**
      * Gets all rents from database
-     * @return {@link List<RentDetailsDto>}
+     * @return a list of {@link RentDetailsDto}
      */
     @GetMapping
     public ResponseEntity<List<RentDetailsDto>> getRentsList() {

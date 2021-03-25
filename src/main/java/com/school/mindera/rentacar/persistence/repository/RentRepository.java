@@ -8,9 +8,19 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Date;
 
+/**
+ * The rent Repository for database persistence
+ */
 @Repository
 public interface RentRepository extends CrudRepository<RentEntity, Long> {
 
+    /**
+     * Find if set of dates on a certain car rent intercept with given dates
+     * @param carId the car to search for
+     * @param beginDate the begin date to compare
+     * @param endDate the end date to compare
+     * @return True if any record is found, False otherwise
+     */
     @Query(
             value = "SELECT CASE WHEN EXISTS( " +
                         "SELECT *\n" +
@@ -28,6 +38,14 @@ public interface RentRepository extends CrudRepository<RentEntity, Long> {
             @Param("endDate") Date endDate);
 
 
+    /**
+     * Find if set of dates on a certain car rent intercept with given dates excluding itself
+     * @param carId the car to search for
+     * @param exceptionRentId the rent to exclude from query
+     * @param beginDate the begin date to compare
+     * @param endDate the end date to compare
+     * @return True if any record is found, False otherwise
+     */
     @Query(
             value = "SELECT CASE WHEN EXISTS( " +
                     "SELECT *\n" +

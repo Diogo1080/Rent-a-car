@@ -1,4 +1,4 @@
-package com.school.mindera.rentacar.command.Car;
+package com.school.mindera.rentacar.command.car;
 
 import com.school.mindera.rentacar.enumerators.CarBrands;
 import com.school.mindera.rentacar.enumerators.CarSegment;

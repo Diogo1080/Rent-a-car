@@ -1,7 +1,7 @@
 package com.school.mindera.rentacar.converter;
 
-import com.school.mindera.rentacar.command.Car.CarDetailsDto;
-import com.school.mindera.rentacar.command.Car.CreateOrUpdateCarDto;
+import com.school.mindera.rentacar.command.car.CarDetailsDto;
+import com.school.mindera.rentacar.command.car.CreateOrUpdateCarDto;
 import com.school.mindera.rentacar.persistence.entity.CarEntity;
 
 /**

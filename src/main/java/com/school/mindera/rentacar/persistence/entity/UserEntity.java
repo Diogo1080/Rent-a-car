@@ -6,6 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.List;
 
+/**
+ * The user entity
+ */
 @Data
 @Builder
 @NoArgsConstructor
@@ -39,4 +42,5 @@ public class UserEntity extends AbstractEntity{
 
     @OneToMany(mappedBy = "userEntity")
     private List<RentEntity> rents;
+
 }

@@ -1,9 +1,9 @@
 package com.school.mindera.rentacar.controller;
 
 import com.school.mindera.rentacar.enumerators.UserRole;
-import com.school.mindera.rentacar.command.User.CreateUserDto;
-import com.school.mindera.rentacar.command.User.UpdateUserDto;
-import com.school.mindera.rentacar.command.User.UserDetailsDto;
+import com.school.mindera.rentacar.command.user.CreateUserDto;
+import com.school.mindera.rentacar.command.user.UpdateUserDto;
+import com.school.mindera.rentacar.command.user.UserDetailsDto;
 import com.school.mindera.rentacar.service.UserServiceImp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,10 +26,6 @@ public class UserController {
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
     private final UserServiceImp userService;
 
-    /**
-     * UserController constructor
-     * @param userService Injects user Service for later use
-     */
     public UserController(UserServiceImp userService) {
         this.userService = userService;
     }
@@ -65,7 +61,7 @@ public class UserController {
 
     /**
      * Gets all users from database
-     * @return {@link List<UserDetailsDto>}
+     * @return a list of {@link UserDetailsDto}
      */
     @GetMapping
     public ResponseEntity<List<UserDetailsDto>> getAllUsers() {

@@ -1,9 +1,8 @@
 package com.school.mindera.rentacar.controller;
 
-import com.school.mindera.rentacar.command.Car.CarDetailsDto;
-import com.school.mindera.rentacar.command.Car.CreateOrUpdateCarDto;
+import com.school.mindera.rentacar.command.car.CarDetailsDto;
+import com.school.mindera.rentacar.command.car.CreateOrUpdateCarDto;
 import com.school.mindera.rentacar.service.CarServiceImp;
-import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.http.HttpStatus;
@@ -24,10 +23,6 @@ public class CarController {
     private final CarServiceImp carService;
     private static Logger LOGGER = LogManager.getLogger(CarController.class);
 
-    /**
-     * CarController constructor
-     * @param carService injects carServices for later use
-     */
     public CarController(CarServiceImp carService) {
         this.carService = carService;
     }
@@ -62,7 +57,7 @@ public class CarController {
 
     /**
      * Get all cars from database
-     * @return {@link List<CarDetailsDto>}
+     * @return a list of {@link CarDetailsDto}
      */
     @GetMapping
     public ResponseEntity<List<CarDetailsDto>> getCarsList() {

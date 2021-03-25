@@ -1,8 +1,8 @@
 package com.school.mindera.rentacar.service;
 
-import com.school.mindera.rentacar.command.User.CreateUserDto;
-import com.school.mindera.rentacar.command.User.UpdateUserDto;
-import com.school.mindera.rentacar.command.User.UserDetailsDto;
+import com.school.mindera.rentacar.command.user.CreateUserDto;
+import com.school.mindera.rentacar.command.user.UpdateUserDto;
+import com.school.mindera.rentacar.command.user.UserDetailsDto;
 import com.school.mindera.rentacar.converter.UserConverter;
 import com.school.mindera.rentacar.enumerators.UserRole;
 import com.school.mindera.rentacar.error.ErrorMessages;
@@ -66,6 +66,7 @@ public class UserServiceImp implements UserService {
     public UserDetailsDto getUserById(long userId) throws UserNotFoundException {
 
         // Get user details from database
+        LOGGER.debug("Getting user with id {}", userId);
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.USER_NOT_FOUND);
@@ -82,6 +83,7 @@ public class UserServiceImp implements UserService {
     public List<UserDetailsDto> getAllUsers() {
 
         // Get all users from database
+        LOGGER.debug("Getting all users");
         Iterable<UserEntity> usersList = userRepository.findAll();
 
         // Convert list items from UserEntity to UserDetailsDto
@@ -99,6 +101,7 @@ public class UserServiceImp implements UserService {
     public void deleteUser(long userId) throws UserNotFoundException, DatabaseCommunicationException {
 
         // Verify if the user exists
+        LOGGER.debug("Getting user with id {}", userId);
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.USER_NOT_FOUND);
@@ -122,6 +125,7 @@ public class UserServiceImp implements UserService {
     public UserDetailsDto updateUser(long userId, UpdateUserDto updateUserDto) throws UserNotFoundException,DatabaseCommunicationException{
 
         // Verify if the user exists
+        LOGGER.debug("Getting user with id {}", userId);
         UserEntity userEntity = userRepository.findById(userId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.USER_NOT_FOUND);

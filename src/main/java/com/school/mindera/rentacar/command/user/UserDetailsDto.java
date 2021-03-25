@@ -1,4 +1,4 @@
-package com.school.mindera.rentacar.command.User;
+package com.school.mindera.rentacar.command.user;
 
 import lombok.Builder;
 import lombok.Data;

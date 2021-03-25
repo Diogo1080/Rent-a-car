@@ -1,7 +1,7 @@
 package com.school.mindera.rentacar.service;
 
-import com.school.mindera.rentacar.command.Rent.CreateOrUpdateRentDto;
-import com.school.mindera.rentacar.command.Rent.RentDetailsDto;
+import com.school.mindera.rentacar.command.rent.CreateOrUpdateRentDto;
+import com.school.mindera.rentacar.command.rent.RentDetailsDto;
 import com.school.mindera.rentacar.exception.*;
 
 import java.util.List;
@@ -60,6 +60,7 @@ public interface RentService {
             CarNotFoundException,
             UserNotFoundException,
             CarAlreadyRentedException,
+            InvalidRentStatusException,
             DatabaseCommunicationException;
 
 

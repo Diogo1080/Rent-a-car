@@ -6,6 +6,9 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 
+/**
+ * The Rent entity
+ */
 @Data
 @Builder
 @NoArgsConstructor

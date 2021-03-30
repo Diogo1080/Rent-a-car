@@ -7,8 +7,15 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.cors.CorsConfiguration;
 
+/**
+ * Config class for configurations
+ */
 @Configuration
 public class Config {
+    /**
+     * corsFilter for filtering a registration
+     * @return a FilterRegistrationBean
+     */
     @Bean
     public FilterRegistrationBean corsFilter() {
         CorsConfiguration config = new CorsConfiguration();

@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.service;
 
+import com.school.mindera.rentacar.command.Paginated;
 import com.school.mindera.rentacar.command.user.CreateUserDto;
 import com.school.mindera.rentacar.command.user.UpdateUserDto;
 import com.school.mindera.rentacar.command.user.UserDetailsDto;
@@ -7,6 +8,7 @@ import com.school.mindera.rentacar.enumerators.UserRole;
 import com.school.mindera.rentacar.exception.DatabaseCommunicationException;
 import com.school.mindera.rentacar.exception.UserAlreadyExistsException;
 import com.school.mindera.rentacar.exception.UserNotFoundException;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -32,11 +34,13 @@ public interface UserService {
      */
     UserDetailsDto getUserById(long userId) throws UserNotFoundException;
 
+
     /**
-     * Gets all users from database
-     * @return all users found
+     * Gets list of users from database with pagination
+     * @param pagination the page and number of elements per page
+     * @return {@link Paginated<UserDetailsDto>}
      */
-    List<UserDetailsDto> getAllUsers();
+    Paginated<UserDetailsDto> getUsersList(Pageable pagination);
 
     /**
      * Deletes certain user with id

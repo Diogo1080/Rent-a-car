@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.service;
 
+import com.school.mindera.rentacar.command.Paginated;
 import com.school.mindera.rentacar.command.user.CreateUserDto;
 import com.school.mindera.rentacar.command.user.UpdateUserDto;
 import com.school.mindera.rentacar.command.user.UserDetailsDto;
@@ -14,6 +15,8 @@ import com.school.mindera.rentacar.persistence.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -78,21 +81,31 @@ public class UserServiceImp implements UserService {
     }
 
     /**
-     * @see UserService#getAllUsers()
+     * @see UserService#getUsersList(Pageable)
      */
-    public List<UserDetailsDto> getAllUsers() {
+    public Paginated<UserDetailsDto> getUsersList(Pageable pagination) {
 
-        // Get all users from database
-        LOGGER.debug("Getting all users");
-        Iterable<UserEntity> usersList = userRepository.findAll();
+        // Get all users from database with pagination
+        LOGGER.debug("Getting all users with pagination - {}", pagination);
+        Page<UserEntity> usersList = userRepository.findAll(pagination);
 
         // Convert list items from UserEntity to UserDetailsDto
         List<UserDetailsDto> usersListResponse = new ArrayList<>();
-        for (UserEntity userEntity : usersList) {
+        for (UserEntity userEntity : usersList.getContent()) {
             usersListResponse.add(UserConverter.fromUserEntityToUserDetailsDto(userEntity));
         }
 
-        return usersListResponse;
+        //Build paginated
+        Paginated<UserDetailsDto> paginated = new Paginated<>(
+                usersListResponse,
+                usersListResponse.size(),
+                pagination.getPageNumber(),
+                usersList.getTotalPages(),
+                usersList.getTotalElements()
+        );
+
+        //Return paginated
+        return paginated;
     }
 
     /**
@@ -122,7 +135,7 @@ public class UserServiceImp implements UserService {
     /**
      * @see UserService#updateUser(long, UpdateUserDto)
      */
-    public UserDetailsDto updateUser(long userId, UpdateUserDto updateUserDto) throws UserNotFoundException,DatabaseCommunicationException{
+    public UserDetailsDto updateUser(long userId, UpdateUserDto updateUserDto) throws UserNotFoundException, DatabaseCommunicationException {
 
         // Verify if the user exists
         LOGGER.debug("Getting user with id {}", userId);

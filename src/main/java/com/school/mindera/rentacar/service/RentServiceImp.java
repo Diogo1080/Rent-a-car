@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.service;
 
+import com.school.mindera.rentacar.command.Paginated;
 import com.school.mindera.rentacar.command.rent.CreateOrUpdateRentDto;
 import com.school.mindera.rentacar.command.rent.RentDetailsDto;
 import com.school.mindera.rentacar.converter.RentConverter;
@@ -13,6 +14,8 @@ import com.school.mindera.rentacar.persistence.repository.RentRepository;
 import com.school.mindera.rentacar.persistence.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -110,29 +113,38 @@ public class RentServiceImp implements RentService {
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.RENT_NOT_FOUND);
                     return new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND);
-        });
+                });
 
         //Convert to RentDetailsDto and return
         return RentConverter.fromRentEntityToRentDetailsDto(rentEntity);
     }
 
     /**
-     * @see RentService#getAllRents()
+     * @see RentService#getRentsList(Pageable)
      */
     @Override
-    public List<RentDetailsDto> getAllRents() {
-        //Get all rents from database
-        LOGGER.debug("Getting all users");
-        Iterable<RentEntity> rentList = rentRepository.findAll();
+    public Paginated<RentDetailsDto> getRentsList(Pageable pagination) {
+
+        //Get rents list from database with pagination
+        LOGGER.debug("Getting rents list with pagination - {}", pagination);
+        Page<RentEntity> rentList = rentRepository.findAll(pagination);
 
         // Convert list items from RentEntity to RentDetailsDto
         List<RentDetailsDto> rentListResponse = new ArrayList<>();
-        for (RentEntity rent : rentList) {
+        for (RentEntity rent : rentList.getContent()) {
             rentListResponse.add(RentConverter.fromRentEntityToRentDetailsDto(rent));
         }
 
-        // Return list of CarDetailsDto
-        return rentListResponse;
+        // Build paginated
+        Paginated<RentDetailsDto> paginated = new Paginated<>(
+                rentListResponse,
+                rentListResponse.size(),
+                pagination.getPageNumber(),
+                rentList.getTotalPages(),
+                rentList.getTotalElements());
+
+        // Return paginated
+        return paginated;
     }
 
     /**
@@ -238,7 +250,7 @@ public class RentServiceImp implements RentService {
     /**
      * @see RentService#deliverCar(long)
      */
-    public RentDetailsDto deliverCar(long rentId) throws RentNotFoundException,DatabaseCommunicationException{
+    public RentDetailsDto deliverCar(long rentId) throws RentNotFoundException, DatabaseCommunicationException {
         //Get rent entity
         LOGGER.debug("Getting rent with id {}", rentId);
         RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> {
@@ -258,7 +270,7 @@ public class RentServiceImp implements RentService {
             LOGGER.debug("Saving changes of car into database");
             carRepository.save(carEntity);
         } catch (Exception e) {
-            LOGGER.error("Failed while saving rent and car into database - {} - {}", rentEntity,carEntity);
+            LOGGER.error("Failed while saving rent and car into database - {} - {}", rentEntity, carEntity);
             throw new DatabaseCommunicationException(ErrorMessages.DATABASE_COMMUNICATION_ERROR, e);
         }
 
@@ -269,7 +281,7 @@ public class RentServiceImp implements RentService {
     /**
      * @see RentService#returnCar(long)
      */
-    public RentDetailsDto returnCar(long rentId) throws RentNotFoundException,DatabaseCommunicationException{
+    public RentDetailsDto returnCar(long rentId) throws RentNotFoundException, DatabaseCommunicationException {
         //Get rent entity
         LOGGER.debug("Getting rent with id {}", rentId);
         RentEntity rentEntity = rentRepository.findById(rentId).orElseThrow(() -> {
@@ -292,7 +304,7 @@ public class RentServiceImp implements RentService {
             LOGGER.debug("Saving changes of car into database");
             carRepository.save(carEntity);
         } catch (Exception e) {
-            LOGGER.error("Failed while saving rent and car into database - {} - {}", rentEntity,carEntity);
+            LOGGER.error("Failed while saving rent and car into database - {} - {}", rentEntity, carEntity);
             throw new DatabaseCommunicationException(ErrorMessages.DATABASE_COMMUNICATION_ERROR, e);
         }
 

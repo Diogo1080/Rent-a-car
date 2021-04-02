@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.controller;
 
+import com.school.mindera.rentacar.command.Paginated;
 import com.school.mindera.rentacar.enumerators.UserRole;
 import com.school.mindera.rentacar.command.user.CreateUserDto;
 import com.school.mindera.rentacar.command.user.UpdateUserDto;
@@ -7,12 +8,12 @@ import com.school.mindera.rentacar.command.user.UserDetailsDto;
 import com.school.mindera.rentacar.service.UserServiceImp;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
 
@@ -59,16 +60,20 @@ public class UserController {
         return new ResponseEntity<>(userDetailsDto, OK);
     }
 
+
     /**
-     * Gets all users from database
-     * @return a list of {@link UserDetailsDto}
+     * Gets list of users from database with pagination
+     * @param page the page number
+     * @param size the number of elements per page
+     * @return {@link Paginated<UserDetailsDto>}
      */
     @GetMapping
-    public ResponseEntity<List<UserDetailsDto>> getAllUsers() {
-        LOGGER.info("Retrieving all users");
-        List<UserDetailsDto> usersList = userService.getAllUsers();
+    public ResponseEntity<Paginated<UserDetailsDto>> getUsersList(@RequestParam(defaultValue="0") int page,
+                                                                  @RequestParam(defaultValue="10") int size) {
+        LOGGER.info("Request to get user list with page and size - {} {}", page, size);
+        Paginated<UserDetailsDto> usersList = userService.getUsersList(PageRequest.of(page, size));
 
-        LOGGER.info("Retrieving List of users with info - {}",usersList);
+        LOGGER.info("Retrieving List of users with info - {}", usersList);
         return new ResponseEntity<>(usersList, OK);
     }
 

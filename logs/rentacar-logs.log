@@ -18,3 +18,53 @@
 [INFO ] 2021-03-25 16:29:30.460 [http-nio-8080-exec-6] CarController - Request to login with credentials - CredentialsDto(email=243@213.com, password=213)
 [DEBUG] 2021-03-25 16:29:30.463 [http-nio-8080-exec-6] AuthServiceImp - Getting user with credentials CredentialsDto(email=243@213.com, password=213)
 [ERROR] 2021-03-25 16:29:30.470 [http-nio-8080-exec-6] AuthServiceImp - The credentials given were wrong
+[INFO ] 2021-03-31 09:42:54.678 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 58099 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-03-31 09:42:54.684 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-03-31 09:42:54.685 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-03-31 09:43:37.665 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 58253 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-03-31 09:43:37.669 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-03-31 09:43:37.671 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-03-31 09:44:15.315 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 58309 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-03-31 09:44:15.319 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-03-31 09:44:15.321 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-03-31 09:44:20.018 [restartedMain] RentacarApplication - Started RentacarApplication in 5.022 seconds (JVM running for 11.205)
+[INFO ] 2021-04-02 15:06:38.743 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 3816 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-02 15:06:38.747 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-02 15:06:38.749 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-02 15:06:43.854 [restartedMain] RentacarApplication - Started RentacarApplication in 5.527 seconds (JVM running for 12.255)
+[INFO ] 2021-04-02 15:06:47.610 [http-nio-8080-exec-1] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='213@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:06:47.613 [http-nio-8080-exec-1] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:06:47.706 [http-nio-8080-exec-1] UserController - Retrieving created user UserDetailsDto(id=1, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=213@213.com)
+[INFO ] 2021-04-02 15:06:52.713 [http-nio-8080-exec-3] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='214@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:06:52.714 [http-nio-8080-exec-3] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:06:52.722 [http-nio-8080-exec-3] UserController - Retrieving created user UserDetailsDto(id=2, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=214@213.com)
+[INFO ] 2021-04-02 15:06:56.987 [http-nio-8080-exec-4] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='215@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:06:56.989 [http-nio-8080-exec-4] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:06:57.002 [http-nio-8080-exec-4] UserController - Retrieving created user UserDetailsDto(id=3, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=215@213.com)
+[INFO ] 2021-04-02 15:06:59.988 [http-nio-8080-exec-5] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='216@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:06:59.989 [http-nio-8080-exec-5] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:07:00.002 [http-nio-8080-exec-5] UserController - Retrieving created user UserDetailsDto(id=4, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=216@213.com)
+[INFO ] 2021-04-02 15:07:03.018 [http-nio-8080-exec-6] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='217@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:07:03.020 [http-nio-8080-exec-6] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:07:03.026 [http-nio-8080-exec-6] UserController - Retrieving created user UserDetailsDto(id=5, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=217@213.com)
+[INFO ] 2021-04-02 15:07:06.099 [http-nio-8080-exec-7] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='218@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:07:06.099 [http-nio-8080-exec-7] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:07:06.110 [http-nio-8080-exec-7] UserController - Retrieving created user UserDetailsDto(id=6, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=218@213.com)
+[INFO ] 2021-04-02 15:07:09.197 [http-nio-8080-exec-8] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='218@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:07:09.198 [http-nio-8080-exec-8] UserServiceImp - Saving user into database
+[ERROR] 2021-04-02 15:07:09.227 [http-nio-8080-exec-8] UserServiceImp - User with the given email already exists
+[INFO ] 2021-04-02 15:07:19.081 [http-nio-8080-exec-9] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='219@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:07:19.082 [http-nio-8080-exec-9] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:07:19.088 [http-nio-8080-exec-9] UserController - Retrieving created user UserDetailsDto(id=8, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=219@213.com)
+[INFO ] 2021-04-02 15:07:24.483 [http-nio-8080-exec-10] UserController - Request to create user - CreateUserDto{firstName='Diogo', lastName='Agostinho', licenseId='213213213', email='2110@213.com', password='***''} and role CUSTOMER.
+[DEBUG] 2021-04-02 15:07:24.484 [http-nio-8080-exec-10] UserServiceImp - Saving user into database
+[INFO ] 2021-04-02 15:07:24.495 [http-nio-8080-exec-10] UserController - Retrieving created user UserDetailsDto(id=9, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=2110@213.com)
+[INFO ] 2021-04-02 15:07:28.745 [http-nio-8080-exec-2] UserController - Request to get user list with page and size - 0 10
+[DEBUG] 2021-04-02 15:07:28.746 [http-nio-8080-exec-2] UserServiceImp - Getting all users with pagination - Page request [number: 0, size 10, sort: UNSORTED]
+[INFO ] 2021-04-02 15:07:28.997 [http-nio-8080-exec-2] UserController - Retrieving List of users with info - Paginated(results=[UserDetailsDto(id=1, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=213@213.com), UserDetailsDto(id=2, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=214@213.com), UserDetailsDto(id=3, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=215@213.com), UserDetailsDto(id=4, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=216@213.com), UserDetailsDto(id=5, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=217@213.com), UserDetailsDto(id=6, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=218@213.com), UserDetailsDto(id=8, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=219@213.com), UserDetailsDto(id=9, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=2110@213.com)], currentPage=0, numberOfPages=1, elementsCurrentPage=8, totalElements=8)
+[INFO ] 2021-04-02 15:08:19.219 [http-nio-8080-exec-1] UserController - Request to get user list with page and size - 0 2
+[DEBUG] 2021-04-02 15:08:19.220 [http-nio-8080-exec-1] UserServiceImp - Getting all users with pagination - Page request [number: 0, size 2, sort: UNSORTED]
+[INFO ] 2021-04-02 15:08:19.239 [http-nio-8080-exec-1] UserController - Retrieving List of users with info - Paginated(results=[UserDetailsDto(id=1, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=213@213.com), UserDetailsDto(id=2, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=214@213.com)], currentPage=0, numberOfPages=4, elementsCurrentPage=2, totalElements=8)
+[INFO ] 2021-04-02 15:08:37.677 [http-nio-8080-exec-3] UserController - Request to get user list with page and size - 1 2
+[DEBUG] 2021-04-02 15:08:37.677 [http-nio-8080-exec-3] UserServiceImp - Getting all users with pagination - Page request [number: 1, size 2, sort: UNSORTED]
+[INFO ] 2021-04-02 15:08:37.691 [http-nio-8080-exec-3] UserController - Retrieving List of users with info - Paginated(results=[UserDetailsDto(id=3, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=215@213.com), UserDetailsDto(id=4, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=216@213.com)], currentPage=1, numberOfPages=4, elementsCurrentPage=2, totalElements=8)

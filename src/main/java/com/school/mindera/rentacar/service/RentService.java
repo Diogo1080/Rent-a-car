@@ -1,8 +1,10 @@
 package com.school.mindera.rentacar.service;
 
+import com.school.mindera.rentacar.command.Paginated;
 import com.school.mindera.rentacar.command.rent.CreateOrUpdateRentDto;
 import com.school.mindera.rentacar.command.rent.RentDetailsDto;
 import com.school.mindera.rentacar.exception.*;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 /**
@@ -33,11 +35,14 @@ public interface RentService {
      */
     RentDetailsDto getRentById(long rentId) throws RentNotFoundException;
 
+
     /**
-     * Get all rents from database
-     * @return All rents found
+     * Gets list of rents from database with pagination
+     *
+     * @param pagination the page and the number of elements per page
+     * @return {@link Paginated<RentDetailsDto>}
      */
-    List<RentDetailsDto> getAllRents();
+    Paginated<RentDetailsDto> getRentsList(Pageable pagination);
 
 
     /**

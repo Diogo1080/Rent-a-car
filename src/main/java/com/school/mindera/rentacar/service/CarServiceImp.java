@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.service;
 
+import com.school.mindera.rentacar.command.Paginated;
 import com.school.mindera.rentacar.command.car.CarDetailsDto;
 import com.school.mindera.rentacar.command.car.CreateOrUpdateCarDto;
 import com.school.mindera.rentacar.converter.CarConverter;
@@ -11,6 +12,8 @@ import com.school.mindera.rentacar.persistence.entity.CarEntity;
 import com.school.mindera.rentacar.persistence.repository.CarRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
@@ -77,22 +80,31 @@ public class CarServiceImp implements CarService {
     }
 
     /**
-     * @see CarService#getAllCars()
+     * @see CarService#getCarsList(Pageable)
      */
     @Override
-    public List<CarDetailsDto> getAllCars() {
-        // Get all users from database
-        LOGGER.debug("Getting all cars");
-        Iterable<CarEntity> usersList = carRepository.findAll();
+    public Paginated<CarDetailsDto> getCarsList(Pageable pagination) {
+        // Get cars list with pagination
+        LOGGER.debug("Getting cars list with pagination - {}", pagination);
+        Page<CarEntity> carsList = carRepository.findAll(pagination);
 
         // Convert list items from CarEntity to CarDetailsDto
         List<CarDetailsDto> carsListResponse = new ArrayList<>();
-        for (CarEntity car : usersList) {
+        for (CarEntity car : carsList.getContent()) {
             carsListResponse.add(CarConverter.fromCarEntityToCarDetailsDto(car));
         }
 
-        // Return list of CarDetailsDto
-        return carsListResponse;
+        //Build paginated
+        Paginated<CarDetailsDto> paginated = new Paginated<>(
+                carsListResponse,
+                carsListResponse.size(),
+                pagination.getPageNumber(),
+                carsList.getTotalPages(),
+                carsList.getTotalElements()
+        );
+
+        // Return paginated
+        return paginated;
     }
 
     /**

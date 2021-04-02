@@ -25,4 +25,6 @@ public class UserDetailsDto {
 
 
     private String email;
+
+
 }

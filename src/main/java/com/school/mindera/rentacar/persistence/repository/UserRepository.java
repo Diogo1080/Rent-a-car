@@ -30,4 +30,11 @@ public interface UserRepository extends PagingAndSortingRepository<UserEntity, L
     Optional<UserEntity> findMatchingCredentials(
             @Param("email") String email,
             @Param("password") String password);
+
+    /**
+     * Get user by email
+     * @param email
+     * @return
+     */
+    Optional<UserEntity> findByEmail(String email);
 }

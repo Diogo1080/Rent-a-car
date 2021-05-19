@@ -30,10 +30,11 @@ public interface RentService {
     /**
      * Get certain rent by id from database
      * @param rentId Receives the rent id
+     * @param userId Receives the user id
      * @return {@link RentDetailsDto}
      * @throws RentNotFoundException if rent is not found
      */
-    RentDetailsDto getRentById(long rentId) throws RentNotFoundException;
+    RentDetailsDto getRentById(long rentId, long userId) throws RentNotFoundException;
 
 
     /**

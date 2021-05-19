@@ -10,8 +10,6 @@ import com.school.mindera.rentacar.exception.UserAlreadyExistsException;
 import com.school.mindera.rentacar.exception.UserNotFoundException;
 import org.springframework.data.domain.Pageable;
 
-import java.util.List;
-
 /**
  * Common interface for user service, provides methods to manage users
  */

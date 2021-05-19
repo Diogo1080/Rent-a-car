@@ -6,11 +6,13 @@ import com.school.mindera.rentacar.command.user.CreateUserDto;
 import com.school.mindera.rentacar.command.user.UpdateUserDto;
 import com.school.mindera.rentacar.command.user.UserDetailsDto;
 import com.school.mindera.rentacar.service.UserServiceImp;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -22,6 +24,7 @@ import static org.springframework.http.HttpStatus.OK;
  */
 @RestController
 @RequestMapping("/users")
+@Tag(name="users", description="userApi")
 public class UserController {
 
     private static final Logger LOGGER = LogManager.getLogger(UserController.class);
@@ -39,10 +42,10 @@ public class UserController {
     @PostMapping
     public ResponseEntity<UserDetailsDto> createUser(@Valid @RequestBody CreateUserDto createUserDto) {
 
-        LOGGER.info("Request to create user - {} and role {}.", createUserDto, UserRole.CUSTOMER);
+        LOGGER.info("Request to create user - {} - and role - {}", createUserDto, UserRole.CUSTOMER);
         UserDetailsDto userDetailsDto =  userService.addNewUser(createUserDto, UserRole.CUSTOMER);
 
-        LOGGER.info("Retrieving created user {}", userDetailsDto);
+        LOGGER.info("Retrieving created user - {}", userDetailsDto);
         return new ResponseEntity<>(userDetailsDto, HttpStatus.CREATED);
     }
 
@@ -52,6 +55,9 @@ public class UserController {
      * @return {@link UserDetailsDto}
      */
     @GetMapping("/{userId}")
+    @PreAuthorize("@authorized.isUser(#userId) ||" +
+            "@authorized.hasRole(\"EMPLOYEE\") ||" +
+            "@authorized.hasRole(\"ADMIN\")")
     public ResponseEntity<UserDetailsDto> getUserById(@PathVariable long userId) {
         LOGGER.info("Request to get user of id - {}", userId);
         UserDetailsDto userDetailsDto = userService.getUserById(userId);

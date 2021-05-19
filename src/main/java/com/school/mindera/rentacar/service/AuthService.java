@@ -1,20 +1,26 @@
 package com.school.mindera.rentacar.service;
 
 import com.school.mindera.rentacar.command.auth.CredentialsDto;
+import com.school.mindera.rentacar.command.auth.LoggedInDto;
+import com.school.mindera.rentacar.command.auth.PrincipalDto;
 import com.school.mindera.rentacar.command.user.UserDetailsDto;
-import com.school.mindera.rentacar.exception.WrongCredentialsException;
 
 /**
- * Common interface for Authentication service, provides methods to manage Authentication
+ * Common interface for authorization operations
  */
 public interface AuthService {
 
+    /**
+     * Login user
+     * @param credentialsDto
+     * @return {@link LoggedInDto} logged in user details
+     */
+    LoggedInDto loginUser(CredentialsDto credentialsDto);
 
     /**
-     * Checks if credentials given are correct
-     * @param credentialsDto {@link CredentialsDto}
-     * @return {@link UserDetailsDto}
-     * @throws WrongCredentialsException when credentials are wrong
+     * Validate token
+     * @param token
+     * @return {@link PrincipalDto} principal authenticated
      */
-    UserDetailsDto login (CredentialsDto credentialsDto) throws WrongCredentialsException;
+    PrincipalDto validateToken(String token);
 }

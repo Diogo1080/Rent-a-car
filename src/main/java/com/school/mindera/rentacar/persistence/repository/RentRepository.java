@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Date;
+import java.util.Optional;
 
 /**
  * The rent Repository for database persistence
@@ -68,4 +69,15 @@ public interface RentRepository extends PagingAndSortingRepository<RentEntity, L
             @Param("exceptionRentId") long exceptionRentId,
             @Param("beginDate") Date beginDate,
             @Param("endDate") Date endDate);
+
+
+    @Query(value="SELECT *\n" +
+            "FROM rent t1\n" +
+            "WHERE t1.user_id = :userId\n" +
+            "AND \n" +
+            "t1.id = :rentId",
+            nativeQuery=true)
+    Optional<RentEntity> findByRentIdAndUserId(
+            @Param("rentId") long rentId,
+            @Param("userId") long userId);
 }

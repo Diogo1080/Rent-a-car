@@ -103,13 +103,13 @@ public class RentServiceImp implements RentService {
     }
 
     /**
-     * @see RentService#getRentById(long)
+     * @see RentService#getRentById(long, long)
      */
     @Override
-    public RentDetailsDto getRentById(long rentId) throws RentNotFoundException {
+    public RentDetailsDto getRentById(long rentId, long userId) throws RentNotFoundException {
         //Get rent from database
         LOGGER.debug("Getting rent with id {}", rentId);
-        RentEntity rentEntity = rentRepository.findById(rentId)
+        RentEntity rentEntity = rentRepository.findByRentIdAndUserId(rentId, userId)
                 .orElseThrow(() -> {
                     LOGGER.error(ErrorMessages.RENT_NOT_FOUND);
                     return new RentNotFoundException(ErrorMessages.RENT_NOT_FOUND);
@@ -197,8 +197,8 @@ public class RentServiceImp implements RentService {
         //Checking if rent is already completed
         LOGGER.debug("Checking if rent is already completed");
         if (Objects.nonNull(rentEntity.getEndDate())) {
-            LOGGER.error(ErrorMessages.RENT_IS_FINISHED);
-            throw new InvalidRentStatusException(ErrorMessages.RENT_IS_FINISHED);
+            LOGGER.error(ErrorMessages.CAN_NOT_RETURN_CAR);
+            throw new InvalidRentStatusException(ErrorMessages.CAN_NOT_RETURN_CAR);
         }
 
         // Update data with rent details

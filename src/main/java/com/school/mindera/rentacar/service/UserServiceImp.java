@@ -17,6 +17,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,10 +30,12 @@ import java.util.List;
 public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     private static final Logger LOGGER = LogManager.getLogger(UserServiceImp.class);
 
-    public UserServiceImp(UserRepository userRepository) {
+    public UserServiceImp(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -43,6 +46,11 @@ public class UserServiceImp implements UserService {
         // Build UserEntity
         UserEntity userEntity = UserConverter.fromCreateUserDtoToUserEntity(userRegistrationDto);
         userEntity.setRole(userRole);
+
+        // Encrypt password
+        String encryptedPassword = passwordEncoder.encode(userRegistrationDto.getPassword());
+        // Set encrypted password
+        userEntity.setEncryptedPassword(encryptedPassword);
 
         // Persist user into database
         try {

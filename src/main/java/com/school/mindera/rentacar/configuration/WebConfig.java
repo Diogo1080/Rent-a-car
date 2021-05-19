@@ -1,20 +1,22 @@
-
 package com.school.mindera.rentacar.configuration;
 
 import org.apache.catalina.filters.CorsFilter;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.cors.CorsConfiguration;
 
 /**
- * Config class for configurations
+ * Class for beans and configurations
  */
 @Configuration
-public class Config {
+public class WebConfig {
+
     /**
-     * corsFilter for filtering a registration
-     * @return a FilterRegistrationBean
+     * CORS configuration
+     * @return {@link FilterRegistrationBean}
      */
     @Bean
     public FilterRegistrationBean corsFilter() {
@@ -26,4 +28,13 @@ public class Config {
         return bean;
     }
 
+    /**
+     * PasswordEncoder configuration
+     * Set the password encoder we want to use returned a generic {@link PasswordEncoder}
+     * @return {@link PasswordEncoder}
+     */
+    @Bean
+    public PasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder(12);
+    }
 }

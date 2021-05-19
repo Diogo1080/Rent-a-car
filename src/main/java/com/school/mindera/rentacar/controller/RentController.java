@@ -9,6 +9,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -49,9 +50,12 @@ public class RentController {
      * @return {@link RentDetailsDto}
      */
     @GetMapping("/{rentId}")
-    public ResponseEntity<RentDetailsDto> getRentById(@PathVariable long rentId) {
-        LOGGER.info("Request to get rent of id - {}", rentId);
-        RentDetailsDto rentDetails = rentService.getRentById(rentId);
+    @PreAuthorize("@authorized.hasRole(\" EMPLOYEE \") ||" +
+            "@authorized.hasRole(\" ADMIN \") ||" +
+            "@authorized.isUser(#userId)")
+    public ResponseEntity<RentDetailsDto> getRentById(@PathVariable long userId,@PathVariable long rentId) {
+        LOGGER.info("Request to get rent of id - {} - of user with id - {}", rentId,userId);
+        RentDetailsDto rentDetails = rentService.getRentById(rentId, userId);
 
         LOGGER.info("Retrieving rent with info - {}", rentDetails);
         return new ResponseEntity<>(rentDetails, HttpStatus.OK);
@@ -77,7 +81,7 @@ public class RentController {
     /**
      * Updates a rent with certain Id
      *
-     * @param rentId                Receives rent id
+     * @param rentId Receives rent id
      * @param createOrUpdateRentDto {@link CreateOrUpdateRentDto}
      * @return {@link RentDetailsDto}
      */

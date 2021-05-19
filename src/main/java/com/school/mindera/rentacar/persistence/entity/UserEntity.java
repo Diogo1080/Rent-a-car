@@ -34,7 +34,7 @@ public class UserEntity extends AbstractEntity{
     private String email;
 
     @Column(nullable = false)
-    private String password;
+    private String encryptedPassword;
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false)

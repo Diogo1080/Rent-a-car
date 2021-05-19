@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.command.user;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,12 +14,16 @@ import javax.validation.constraints.NotBlank;
 @Data
 @Builder
 public class CreateUserDto {
+
+    @Schema(example="Rui")
     @NotBlank(message = "Must have a first name")
     private String firstName;
 
+    @Schema(example="Magalhães")
     @NotBlank(message = "Must have a last name")
     private String lastName;
 
+    @Schema(example="123123123")
     @NotBlank(message = "Must have a licence ID")
     private String licenseId;
 

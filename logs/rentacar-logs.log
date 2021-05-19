@@ -68,3 +68,31 @@
 [INFO ] 2021-04-02 15:08:37.677 [http-nio-8080-exec-3] UserController - Request to get user list with page and size - 1 2
 [DEBUG] 2021-04-02 15:08:37.677 [http-nio-8080-exec-3] UserServiceImp - Getting all users with pagination - Page request [number: 1, size 2, sort: UNSORTED]
 [INFO ] 2021-04-02 15:08:37.691 [http-nio-8080-exec-3] UserController - Retrieving List of users with info - Paginated(results=[UserDetailsDto(id=3, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=215@213.com), UserDetailsDto(id=4, firstName=Diogo, lastName=Agostinho, licenseId=213213213, email=216@213.com)], currentPage=1, numberOfPages=4, elementsCurrentPage=2, totalElements=8)
+[INFO ] 2021-04-21 16:28:29.480 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39289 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:28:29.485 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:28:29.486 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:32:17.898 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39488 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:32:17.905 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:32:17.907 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:34:29.609 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39589 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:34:29.615 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:34:29.616 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:34:44.062 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39603 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:34:44.067 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:34:44.068 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:36:46.382 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39686 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:36:46.386 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:36:46.388 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:38:22.598 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39773 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:38:22.602 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:38:22.603 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:40:09.473 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39847 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:40:09.477 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:40:09.479 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:40:35.185 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39866 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:40:35.188 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:40:35.189 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:41:15.658 [restartedMain] RentacarApplication - Starting RentacarApplication using Java 15 on Diogos-MacBook-Pro.local with PID 39894 (/Users/diogo1080/workplace/Rent-a-Car/target/classes started by diogo1080 in /Users/diogo1080/workplace/Rent-a-Car)
+[DEBUG] 2021-04-21 16:41:15.662 [restartedMain] RentacarApplication - Running with Spring Boot v2.4.2, Spring v5.3.3
+[INFO ] 2021-04-21 16:41:15.663 [restartedMain] RentacarApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2021-04-21 16:41:19.669 [restartedMain] RentacarApplication - Started RentacarApplication in 4.303 seconds (JVM running for 10.382)

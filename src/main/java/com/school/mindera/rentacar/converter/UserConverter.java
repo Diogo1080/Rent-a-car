@@ -1,5 +1,6 @@
 package com.school.mindera.rentacar.converter;
 
+import com.school.mindera.rentacar.command.auth.PrincipalDto;
 import com.school.mindera.rentacar.command.user.CreateUserDto;
 import com.school.mindera.rentacar.command.user.UserDetailsDto;
 import com.school.mindera.rentacar.persistence.entity.UserEntity;
@@ -21,7 +22,7 @@ public class UserConverter {
                 .lastName(createUserDto.getLastName())
                 .email(createUserDto.getEmail())
                 .licenseId(createUserDto.getLicenseId())
-                .password(createUserDto.getPassword())
+                .encryptedPassword(createUserDto.getPassword())
                 .build();
     }
 
@@ -40,4 +41,16 @@ public class UserConverter {
                 .build();
     }
 
+    /**
+     * Convert from {@link UserEntity} to {@link PrincipalDto}
+     * @param userEntity
+     * @return {@link PrincipalDto}
+     */
+    public static PrincipalDto fromUserEntityToPrincipalDto(UserEntity userEntity) {
+        return PrincipalDto.builder()
+                .userId(userEntity.getId())
+                .firstName(userEntity.getFirstName())
+                .userRole(userEntity.getRole())
+                .build();
+    }
 }

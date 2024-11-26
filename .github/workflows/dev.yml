@@ -1,0 +1,21 @@
+name: "DEV DEPLOY"
+
+on:
+  push:
+    branches:
+      - dev
+
+# Permission can be added at job level or workflow level    
+permissions:
+  id-token: write   # This is required for requesting the JWT
+  contents: read    # This is required for actions/checkout
+
+jobs:
+  terraform:
+    uses: ./.github/workflows/terraform.yml
+    with:
+      enviroment: "dev"
+      aws-assume-role-arn: "arn:aws:iam::897729146517:role/github-actions-Diogo1080-Tests"
+      aws-region: "eu-north-1"
+      aws-statefile-s3-bucket: "diogo1080-eu-north-1-tests"
+      aws-lock-dynamodb-table: "diogo1080-eu-north-1-tests"

@@ -1,3 +1,3 @@
-variable "bucketName" {
+variable "bucket_name" {
   type = string
 }
